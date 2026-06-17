@@ -1,0 +1,1143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Foam Nation Arizona — Family Foam Parties · Mesa, AZ</title>
+<meta name="description" content="Arizona's home for foam parties done right. Oceans of foam, water slides, bounce houses and nonstop energy — family days under the sun at Dink & Dine Pickle Park, Mesa. Powered by Foam Daddy." />
+<meta name="theme-color" content="#1577e6" />
+
+<!-- Open Graph / social share -->
+<meta property="og:title" content="Foam Nation Arizona — Family Foam Parties" />
+<meta property="og:description" content="Oceans of foam, water slides, bounce houses and nonstop energy. Family foam fun, all ages — exclusively at Dink & Dine Pickle Park, Mesa AZ." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="img/hl/hl-1.jpg" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='13' cy='18' r='9' fill='%23bfeafd' stroke='%2319b6e6' stroke-width='2'/%3E%3Ccircle cx='23' cy='12' r='5' fill='%23e8f8ff' stroke='%2319b6e6' stroke-width='1.6'/%3E%3Ccircle cx='24' cy='21' r='3.4' fill='%23e8f8ff' stroke='%2319b6e6' stroke-width='1.4'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   FOAM NATION ARIZONA · Family Foam Parties
+   One self-contained file. Edit your dates in the EVENTS array
+   near the bottom (inside <script>). Everything else renders
+   itself. Photos live in /img.
+   ============================================================ */
+
+:root{
+  --bg:        #e7f4ff;   /* sky top                       */
+  --bg-2:      #f6fbff;   /* near-white bottom             */
+  --surface:   #ffffff;   /* card surface                  */
+  --surface-2: #f0f8ff;   /* raised / hover                */
+  --line:      #d4e7f8;   /* soft blue hairline            */
+  --ink:       #0b2e5b;   /* deep navy — headings/text     */
+  --ink-2:     #143a63;
+  --muted:     #5a78a0;   /* muted blue-gray               */
+  --muted-2:   #93accb;   /* dim                           */
+  --blue:      #1565e0;   /* royal blue (flyer)            */
+  --blue-deep: #0c3f9e;
+  --cyan:      #22a7ea;   /* sky blue (flyer)              */
+  --turq:      #15c0d4;   /* turquoise accent (flyer)      */
+  --teal:      #3aa8bd;   /* Foam Daddy teal               */
+  --yellow:    #ffc328;   /* sunny yellow — tickets/CTA    */
+  --yellow-deep:#f0a500;
+  --gold:      #ffd766;   /* soft gold                     */
+  --maxw: 1180px;
+  --radius: 18px;
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{
+  margin:0;
+  background:linear-gradient(180deg, #ffffff 0%, var(--bg) 330px, var(--bg-2) 820px);
+  color:var(--ink);
+  font-family:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  font-weight:600;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--cyan);color:#06263a}
+
+/* ---- display type ---- */
+.display{
+  font-family:'Baloo 2','Nunito',sans-serif;font-weight:800;
+  line-height:.96;letter-spacing:-.5px;
+}
+.kicker{
+  font-size:13px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--blue);display:inline-flex;align-items:center;gap:.6em;font-family:'Nunito',sans-serif;
+}
+.kicker::before{content:"";width:24px;height:3px;border-radius:3px;background:var(--cyan);display:inline-block}
+
+.container{max-width:var(--maxw);margin-inline:auto;padding-inline:22px}
+section{position:relative}
+
+/* floating bubbles (decorative) */
+.bubble{position:absolute;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 32% 28%, rgba(255,255,255,.95), rgba(214,240,255,.5) 45%, rgba(150,210,245,.18) 70%, transparent 72%);
+  border:1px solid rgba(255,255,255,.7);box-shadow:inset -4px -6px 14px rgba(120,190,235,.25);z-index:0}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 22px;transition:background .35s var(--ease),box-shadow .35s,backdrop-filter .35s;
+}
+.nav.scrolled{
+  background:rgba(9,28,66,.82);backdrop-filter:blur(14px) saturate(1.3);
+  box-shadow:0 8px 26px -16px rgba(4,20,50,.55);
+}
+/* dark nav (transparent over hero → navy when scrolled): white logo + white links */
+.nav-logo{height:42px;width:auto;display:block;filter:drop-shadow(0 2px 9px rgba(4,20,50,.42))}
+@media(min-width:721px){
+  .nav .nav-links a{color:rgba(255,255,255,.95);text-shadow:0 1px 8px rgba(4,20,50,.4)}
+  .nav .nav-links a:hover{color:#fff}
+}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .mark{width:40px;height:40px;flex:none}
+.wm{display:flex;flex-direction:column;line-height:.85}
+.wm b{font-family:'Baloo 2',sans-serif;font-style:italic;letter-spacing:.2px}
+.wm .wm1{font-size:19px;font-weight:800;color:var(--ink)}
+.wm .wm2{font-size:13px;font-weight:800;color:var(--turq);letter-spacing:2px}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a{font-size:15px;font-weight:800;color:var(--ink-2);transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.btn{
+  display:inline-flex;align-items:center;gap:.5em;cursor:pointer;border:none;
+  font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;letter-spacing:.01em;
+  padding:13px 24px;border-radius:999px;transition:transform .15s var(--ease),box-shadow .25s,background .2s;
+}
+.btn svg{flex:none}
+.btn-primary{background:var(--yellow);color:var(--ink);box-shadow:0 10px 26px -8px rgba(240,165,0,.5)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px -8px rgba(240,165,0,.62);background:var(--yellow-deep)}
+.btn-blue{background:linear-gradient(180deg,var(--blue),var(--blue-deep));color:#fff;box-shadow:0 10px 26px -8px rgba(21,119,230,.55)}
+.btn-blue:hover{transform:translateY(-2px);box-shadow:0 16px 34px -8px rgba(21,119,230,.7)}
+.btn-ghost{background:#fff;color:var(--blue);border:2px solid var(--line)}
+.btn-ghost:hover{border-color:var(--blue);transform:translateY(-2px)}
+.nav-toggle{display:none;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.5);border-radius:12px;
+  width:44px;height:42px;color:#fff;cursor:pointer;align-items:center;justify-content:center}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;
+  padding:104px 20px 72px;overflow:hidden;text-align:center}
+.hero-slides{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a2348}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;
+  opacity:0;transition:opacity 1.5s ease;filter:blur(2px) brightness(.9) saturate(1.08);transform:scale(1.06)}
+.hero-slide.active{opacity:1}
+.hero-scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(8,30,70,.52) 0%, rgba(8,30,70,.4) 38%, rgba(7,24,60,.86) 100%)}
+.hero-center{position:relative;z-index:3;max-width:780px;display:flex;flex-direction:column;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.32);backdrop-filter:blur(6px);color:#fff;border-radius:999px;
+  padding:8px 16px;font-size:13px;font-weight:800;margin-bottom:24px}
+.hero-badge b{color:#fff}
+.hero-logo{margin:0;display:flex;justify-content:center}
+.hero-logo-img{width:min(660px,90vw);height:auto;filter:drop-shadow(0 12px 30px rgba(3,18,44,.55))}
+.hero-tag{color:#eaf3ff;font-size:clamp(17px,2.2vw,21px);font-weight:700;max-width:42ch;margin:22px 0 0;
+  text-shadow:0 2px 14px rgba(4,24,55,.55)}
+.hero-ticket{margin-top:26px;width:100%;max-width:520px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(10px);border-radius:20px;padding:18px;
+  box-shadow:0 30px 70px -30px rgba(4,20,50,.7)}
+.ht-when{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:800;
+  font-size:13.5px;margin-bottom:12px;flex-wrap:wrap}
+.ht-when b{color:#fff}
+.ht-when .pulse{width:8px;height:8px;border-radius:50%;background:var(--yellow);
+  box-shadow:0 0 0 0 rgba(255,195,40,.65);animation:pulse 2s infinite}
+.ht-cta{margin-top:14px}
+.ht-cta .btn{width:100%;justify-content:center;font-size:16px}
+.hero-cues{margin-top:24px;display:flex;gap:10px 16px;flex-wrap:wrap;justify-content:center;
+  color:#cfe0f5;font-size:12.5px;font-weight:800}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0}
+.cd-cell{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+  border-radius:12px;padding:11px 6px;text-align:center}
+.cd-cell .num{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(24px,5vw,34px);color:#fff;line-height:1}
+.cd-cell .lab{font-size:9.5px;letter-spacing:.14em;color:#cfe2ff;text-transform:uppercase;margin-top:5px;font-weight:800}
+.hero-ctas{display:flex;gap:13px;flex-wrap:wrap;margin-top:14px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,195,40,.6)}70%{box-shadow:0 0 0 11px rgba(255,195,40,0)}100%{box-shadow:0 0 0 0 rgba(255,195,40,0)}}
+
+/* =========================================================
+   FOAM DADDY PARTNER
+   ========================================================= */
+#partner{background:linear-gradient(180deg,transparent,#eef8fc 30%,#eef8fc 70%,transparent)}
+.partner-wrap{display:grid;grid-template-columns:.92fr 1.08fr;gap:40px;align-items:center}
+.partner-media{display:flex;flex-direction:column;gap:18px}
+.fd-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;
+  text-align:center;box-shadow:0 22px 50px -38px rgba(11,46,91,.5)}
+.fd-card img{width:min(260px,78%);height:auto;margin:0 auto 4px}
+.fd-card span{display:block;font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.partner-photo{aspect-ratio:16/10;border-radius:var(--radius);background-size:cover;background-position:center;
+  border:1px solid var(--line);box-shadow:0 22px 50px -38px rgba(11,46,91,.5)}
+.partner-copy .kicker{color:var(--teal)}
+.partner-copy .kicker::before{background:var(--teal)}
+.partner-copy h2{color:var(--ink);margin:10px 0 14px;font-size:clamp(34px,5.4vw,60px)}
+.partner-copy p{color:var(--muted);font-weight:700;margin:0 0 14px;max-width:50ch}
+.partner-copy p b{color:var(--ink)}
+.fd-claims{list-style:none;padding:0;margin:4px 0 16px;display:grid;gap:11px}
+.fd-claims li{position:relative;padding-left:32px;color:var(--ink-2);font-weight:800;font-size:15px}
+.fd-claims li::before{content:"";position:absolute;left:0;top:0;width:21px;height:21px;border-radius:50%;
+  background:var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/13px no-repeat}
+.fd-tag{font-family:'Baloo 2',sans-serif;font-style:italic;color:var(--teal);font-weight:700;font-size:18px;margin:0}
+
+/* =========================================================
+   VENUE — Dink & Dine real photos
+   ========================================================= */
+.venue-strip{display:grid;grid-template-columns:1.7fr 1fr;gap:14px;margin-bottom:18px}
+.vs-hero{position:relative;border-radius:var(--radius);overflow:hidden;min-height:370px;
+  background-size:cover;background-position:center;box-shadow:0 26px 60px -38px rgba(11,46,91,.55)}
+.vs-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 42%,rgba(7,26,62,.86))}
+.vs-cap{position:absolute;left:20px;bottom:18px;z-index:2;color:#fff;display:flex;flex-direction:column;gap:2px}
+.vs-cap b{font-family:'Baloo 2',sans-serif;font-size:24px;font-weight:800}
+.vs-cap span{font-size:13px;color:#dce9fb;font-weight:700}
+.vs-col{display:grid;grid-template-rows:1fr 1fr;gap:14px}
+.vs-tile{border-radius:var(--radius);background-size:cover;background-position:center;min-height:178px;
+  box-shadow:0 22px 50px -38px rgba(11,46,91,.5)}
+
+/* =========================================================
+   PRICING / FAMILY DEAL
+   ========================================================= */
+#pricing{background:linear-gradient(180deg,transparent,#eef6ff 30%,#eef6ff 70%,transparent)}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:900px;margin:0 auto}
+.price-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:22px;
+  padding:34px 30px;box-shadow:0 22px 50px -38px rgba(11,46,91,.5);display:flex;flex-direction:column}
+.price-card.featured{border:2px solid var(--yellow);box-shadow:0 32px 72px -34px rgba(240,165,0,.6);
+  background:linear-gradient(180deg,#fffdf2,#fff)}
+.pc-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  background:var(--yellow);color:var(--ink);font-weight:900;font-size:11.5px;letter-spacing:.02em;
+  padding:8px 17px;border-radius:999px;box-shadow:0 10px 20px -8px rgba(240,165,0,.75)}
+.pc-name{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:23px;color:var(--ink)}
+.pc-tba{font-family:'Baloo 2',sans-serif;font-size:20px;font-weight:700;color:var(--blue);margin:10px 0 2px}
+.pc-amt{font-family:'Baloo 2',sans-serif;font-size:22px;color:var(--ink);margin:10px 0 2px;font-weight:700;line-height:1.05}
+.pc-amt b{font-size:38px;color:var(--blue)}
+.price-card.featured .pc-amt b{font-size:30px;color:var(--yellow-deep)}
+.pc-amt span{font-size:14px;color:var(--muted);font-weight:700}
+.pc-sub{color:var(--turq);font-weight:900;font-size:15px;margin-bottom:4px}
+.pc-list{list-style:none;padding:0;margin:16px 0 24px;display:grid;gap:11px}
+.pc-list li{position:relative;padding-left:28px;color:var(--ink-2);font-weight:700;font-size:14.5px}
+.pc-list li b{color:var(--ink)}
+.pc-list li::before{content:"";position:absolute;left:0;top:1px;width:18px;height:18px;border-radius:50%;
+  background:var(--turq) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/11px no-repeat}
+.price-card.featured .pc-list li::before{background:var(--yellow-deep)}
+.price-card .btn{margin-top:auto}
+.price-note{text-align:center;color:var(--muted);font-weight:700;font-size:14px;margin:24px auto 0;max-width:54ch}
+.price-note b{color:var(--ink)}
+/* ---- premium NEW tiers: GA Plus + VIP Family Bundle ---- */
+.price-card.plus, .price-card.vip{border-color:transparent}
+.price-card.plus::before, .price-card.vip::before{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.price-card.plus{background:linear-gradient(180deg,#f2faff,#fff);box-shadow:0 30px 66px -30px rgba(21,119,230,.5)}
+.price-card.plus::before{background:linear-gradient(135deg,var(--cyan),var(--blue) 55%,var(--turq))}
+.price-card.vip{background:linear-gradient(180deg,#fffdf1,#fff);box-shadow:0 40px 84px -26px rgba(240,165,0,.62)}
+.price-card.vip::before{background:linear-gradient(120deg,#ffd23a,#19c2d4,#1565e0,#ffd23a);background-size:280% 280%;animation:vipShine 6s linear infinite}
+@keyframes vipShine{to{background-position:280% 50%}}
+.pc-new{position:absolute;top:15px;right:15px;z-index:2;background:var(--blue);color:#fff;font-size:10px;font-weight:900;
+  letter-spacing:.14em;padding:4px 10px;border-radius:999px;box-shadow:0 6px 14px -6px rgba(21,119,230,.6)}
+.price-card.vip .pc-new{background:var(--yellow-deep)}
+.pc-badge-pop{background:linear-gradient(90deg,var(--cyan),var(--blue));color:#fff}
+.pc-badge-vip{background:linear-gradient(90deg,#ffd23a,#f0a500);color:var(--ink);box-shadow:0 12px 24px -8px rgba(240,165,0,.85)}
+.pc-highlight{position:relative;display:flex;align-items:flex-start;gap:9px;border-radius:13px;padding:11px 13px;
+  margin:2px 0 14px;font-weight:800;font-size:13.5px;color:var(--ink);line-height:1.32}
+.price-card.plus .pc-highlight{background:linear-gradient(90deg,rgba(34,167,234,.15),rgba(34,167,234,.04));border:1px solid rgba(21,119,230,.3)}
+.price-card.vip .pc-highlight{background:linear-gradient(90deg,rgba(255,205,58,.24),rgba(255,205,58,.05));border:1px solid rgba(240,165,0,.4)}
+.pc-highlight .hi{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:#fff}
+.price-card.plus .pc-highlight .hi{background:var(--blue)}
+.price-card.vip .pc-highlight .hi{background:var(--yellow-deep)}
+.price-card.vip .pc-amt b{color:var(--yellow-deep)}
+@media (prefers-reduced-motion:reduce){.price-card.vip::before{animation:none}}
+
+/* =========================================================
+   GENERIC SECTION HEADER
+   ========================================================= */
+.sec{padding:90px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:38px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(36px,6.4vw,72px);margin:10px 0 0;color:var(--ink)}
+.sec-head p{color:var(--muted);max-width:46ch;margin:0;font-weight:700}
+
+/* filter chips */
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.chip{padding:10px 20px;border-radius:999px;border:2px solid var(--line);background:#fff;
+  color:var(--ink-2);font-weight:800;font-size:14px;cursor:pointer;transition:all .2s var(--ease);font-family:inherit}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* =========================================================
+   EVENT CARDS  (#days)
+   ========================================================= */
+.event-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
+.ev{position:relative;display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 22px 50px -36px rgba(11,46,91,.5);
+  transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+.ev:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 34px 70px -34px rgba(21,119,230,.45)}
+.ev-photo{position:relative;aspect-ratio:5/4;background-size:cover;background-position:center}
+.ev-photo::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,40,90,.25),transparent 38%,transparent 70%,rgba(8,40,90,.35))}
+.ev-photo .date-chip{position:absolute;top:13px;left:13px;z-index:2;display:inline-flex;flex-direction:column;
+  align-items:center;line-height:1;background:#fff;border-radius:13px;padding:9px 13px;text-align:center;
+  box-shadow:0 8px 20px -8px rgba(11,46,91,.5)}
+.ev-photo .date-chip .mo{font-size:11px;letter-spacing:.12em;color:var(--blue);font-weight:900;text-transform:uppercase}
+.ev-photo .date-chip .dy{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:27px;color:var(--ink)}
+.ev-photo .date-chip .wd{font-size:9.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;font-weight:800}
+.ev-photo .pill{position:absolute;top:14px;right:13px;z-index:2}
+.pill{font-size:10.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:7px 12px;border-radius:999px;white-space:nowrap}
+.pill-family{background:var(--cyan);color:#06263a}
+.pill-18{background:var(--ink);color:#fff}
+.pill-sample{background:#fff;color:var(--muted);border:1px dashed var(--muted-2);letter-spacing:.06em}
+.ev-body{padding:18px 20px 6px}
+.ev h3{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:30px;line-height:1;margin:0 0 8px;color:var(--ink)}
+.ev .ev-kind{font-size:14px;font-weight:800;color:var(--blue);margin-bottom:12px}
+.ev-meta{font-size:14px;color:var(--muted);font-weight:700;display:flex;flex-direction:column;gap:5px}
+.ev-meta .row{display:flex;align-items:center;gap:8px}
+.ev-meta .row svg{flex:none;color:var(--cyan)}
+.ev-foot{padding:16px 20px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto}
+.ev-price{font-size:13px;font-weight:800;color:var(--muted)}
+.ev-price b{font-family:'Baloo 2',sans-serif;font-size:21px;color:var(--ink);font-weight:800}
+.ev-cta{font-size:14px;font-weight:900;color:var(--ink);cursor:pointer;background:var(--yellow);font-family:inherit;
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:none;padding:12px 18px;border-radius:999px;
+  transition:all .2s;box-shadow:0 10px 22px -10px rgba(240,165,0,.6)}
+.ev-cta:hover{background:var(--yellow-deep);transform:translateY(-2px)}
+.empty-note{grid-column:1/-1;color:var(--muted);text-align:center;padding:44px;border:2px dashed var(--line);
+  border-radius:var(--radius);background:#fff;font-weight:700}
+
+/* =========================================================
+   EXPERIENCE  (#experience)
+   ========================================================= */
+#experience{background:linear-gradient(180deg,transparent, #ffffff 22%, #ffffff 78%, transparent)}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;
+  box-shadow:0 18px 44px -38px rgba(11,46,91,.5);transition:transform .25s var(--ease),box-shadow .25s}
+.feat:hover{transform:translateY(-4px);box-shadow:0 28px 60px -36px rgba(21,119,230,.4)}
+.feat .ic{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#e3f6ff,#cdeeff);color:var(--blue);margin-bottom:16px}
+.feat h3{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:21px;margin:0 0 6px;color:var(--ink)}
+.feat p{margin:0;color:var(--muted);font-size:15px;font-weight:700}
+.feat-2 .ic{background:linear-gradient(160deg,#d6f4f9,#bcecf3);color:var(--turq)}
+.feat-3 .ic{background:linear-gradient(160deg,#fff0d4,#ffe1ad);color:#d98a00}
+
+/* =========================================================
+   VENUE  (#venue)
+   ========================================================= */
+.venue-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;
+  background:linear-gradient(150deg,#0d5bc4,#0a3f97);border-radius:26px;padding:42px;overflow:hidden;position:relative;
+  box-shadow:0 40px 90px -48px rgba(10,63,151,.8)}
+.venue-wrap .bubble{opacity:.5}
+.venue-copy{position:relative;z-index:2;color:#eaf4ff}
+.venue-copy .kicker{color:#9fd2ff}
+.venue-copy .kicker::before{background:var(--yellow)}
+.venue-copy h2{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(30px,4.4vw,48px);
+  color:#fff;margin:10px 0 14px;line-height:1.02}
+.venue-copy p{color:#cfe2ff;font-weight:700;margin:0 0 16px;max-width:44ch}
+.venue-facts{display:flex;flex-direction:column;gap:11px;margin-top:18px}
+.vfact{display:flex;align-items:center;gap:12px;color:#fff;font-weight:800;font-size:15px}
+.vfact .vic{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.16);
+  display:flex;align-items:center;justify-content:center;flex:none;color:#bfe3ff}
+.venue-photo{position:relative;z-index:2;border-radius:18px;overflow:hidden;aspect-ratio:4/5;
+  background-size:cover;background-position:center;box-shadow:0 30px 60px -30px rgba(0,0,0,.6);border:3px solid rgba(255,255,255,.25)}
+
+/* =========================================================
+   GALLERY  (#gallery)
+   ========================================================= */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:170px;gap:14px}
+.gtile{border-radius:16px;overflow:hidden;position:relative;background-size:cover;background-position:center;
+  box-shadow:0 18px 40px -30px rgba(11,46,91,.5);transition:transform .3s var(--ease)}
+.gtile:hover{transform:scale(1.02)}
+.gtile.tall{grid-row:span 2}
+.gtile.wide{grid-column:span 2}
+.gallery-note{text-align:center;margin-top:26px;color:var(--muted);font-weight:800;font-size:15px}
+.gallery-note b{color:var(--blue)}
+
+/* =========================================================
+   STATS / CREDIBILITY
+   ========================================================= */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center;
+  box-shadow:0 18px 44px -38px rgba(11,46,91,.5)}
+.stat .n{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(34px,5vw,50px);
+  background:linear-gradient(180deg,var(--blue),var(--cyan));-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;line-height:1}
+.stat .l{font-size:13px;color:var(--muted);font-weight:800;margin-top:8px}
+
+/* =========================================================
+   FAQ  (#faq)
+   ========================================================= */
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px}
+.faq{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:4px 20px;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s}
+.faq[open]{border-color:var(--cyan);box-shadow:0 18px 40px -34px rgba(21,119,230,.5)}
+.faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:18px 0;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:18px;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:none;width:26px;height:26px;border-radius:8px;background:var(--surface-2);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;font-weight:900;transition:transform .2s,background .2s}
+.faq[open] summary .pm{transform:rotate(45deg);background:var(--cyan);color:#fff}
+.faq p{margin:0 0 18px;color:var(--muted);font-weight:700;font-size:15px}
+
+/* =========================================================
+   CTA BAND + FOOTER
+   ========================================================= */
+.band{position:relative;overflow:hidden;margin:0 22px;border-radius:30px;
+  background:linear-gradient(145deg,var(--blue-deep),var(--blue) 58%,var(--turq) 120%);padding:70px 24px;text-align:center}
+.band .bubble{opacity:.45}
+.band h2{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(36px,7vw,82px);color:#fff;margin:0 0 8px;
+  position:relative;text-shadow:0 3px 22px rgba(150,20,10,.35)}
+.band p{color:#fff;font-weight:800;margin:0 0 26px;position:relative;font-size:18px;opacity:.96}
+.band .hero-ctas{justify-content:center;position:relative}
+.band .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.band .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.12)}
+
+footer{padding:60px 0 42px;margin-top:80px;background:#0a2348;color:#cfe0f3}
+.foot-grid{display:flex;justify-content:space-between;gap:34px;flex-wrap:wrap;align-items:flex-start}
+.foot-brand{max-width:320px}
+.foot-logo{height:40px;width:auto;display:block}
+.foot-brand p{color:#9fb6d4;font-weight:700;font-size:14.5px;margin:14px 0 16px}
+.foot-fd{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.07);border-radius:12px;
+  padding:9px 14px;font-size:12.5px;font-weight:800;color:#bcd2ec}
+.foot-fd img{height:24px;width:auto}
+.foot-col h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7f9cc0;margin:0 0 14px;font-weight:900}
+.foot-col a{display:block;color:#cfe0f3;font-size:14.5px;margin-bottom:10px;font-weight:700;transition:color .2s}
+.foot-col a:hover{color:#fff}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:22px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:#7f9cc0;font-size:13px;font-weight:700}
+
+/* =========================================================
+   REVEAL ANIMATION
+   ========================================================= */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .next-card .tag .pulse{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width:980px){
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .partner-wrap{grid-template-columns:1fr;gap:28px}
+  .venue-strip{grid-template-columns:1fr}
+  .vs-col{grid-template-rows:none;grid-template-columns:1fr 1fr}
+  .venue-wrap{grid-template-columns:1fr;padding:32px}
+  .venue-photo{aspect-ratio:16/10}
+  .gallery{grid-template-columns:repeat(3,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .nav-links{position:absolute;top:100%;right:14px;left:14px;flex-direction:column;align-items:stretch;
+    gap:6px;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border:1px solid var(--line);
+    border-radius:16px;padding:14px;transform:translateY(-8px) scale(.98);opacity:0;pointer-events:none;
+    transition:all .25s var(--ease);box-shadow:0 20px 50px -20px rgba(11,46,91,.4)}
+  .nav-links.open{transform:none;opacity:1;pointer-events:auto}
+  .nav-links a{padding:11px 8px;font-size:16px}
+  .nav-links .btn{justify-content:center;margin-top:4px}
+  .nav-toggle{display:inline-flex}
+  .feat-grid{grid-template-columns:1fr}
+  .price-grid{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px}
+  .sec{padding:64px 0}
+  .foot-bottom{flex-direction:column}
+}
+
+/* =========================================================
+   TICKET MODAL (Posh inline checkout)
+   ========================================================= */
+.tk{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:24px}
+.tk.open{display:flex}
+.tk-backdrop{position:absolute;inset:0;background:rgba(8,30,66,.62);backdrop-filter:blur(7px)}
+.tk-dialog{position:relative;z-index:1;width:min(440px,100%);height:min(86vh,800px);
+  display:flex;flex-direction:column;background:#fff;border-radius:20px;overflow:hidden;
+  box-shadow:0 50px 120px -30px rgba(8,30,66,.7);animation:tkin .3s var(--ease)}
+@keyframes tkin{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
+.tk-head{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#f4fbff,#fff)}
+.tk-head-l{margin-right:auto;min-width:0}
+.tk-kicker{font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+.tk-head h3{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:21px;margin:2px 0 0;color:var(--ink);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tk-open{font-size:12px;font-weight:800;color:var(--muted);white-space:nowrap;border:2px solid var(--line);
+  padding:8px 13px;border-radius:999px;transition:all .2s}
+.tk-open:hover{color:var(--blue);border-color:var(--blue)}
+.tk-close{flex:none;width:40px;height:40px;border-radius:12px;border:2px solid var(--line);background:#fff;
+  color:var(--ink);font-size:15px;cursor:pointer;transition:all .2s;font-family:inherit;font-weight:900}
+.tk-close:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tk-body{position:relative;flex:1;min-height:0;background:#fff}
+.tk-body iframe{width:100%;height:100%;border:0;display:block;background:#fff}
+.tk-load{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:10px;
+  color:var(--muted);font-size:13px;font-weight:800;background:#fff}
+.tk-load::before{content:"";width:16px;height:16px;border-radius:50%;border:2px solid var(--line);
+  border-top-color:var(--blue);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:560px){
+  .tk{padding:0}
+  .tk-dialog{width:100%;height:100%;max-height:100%;border-radius:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Foam Nation Arizona home">
+    <img class="nav-logo" src="img/logo-nav.png" alt="Foam Nation Arizona" />
+  </a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#days">The Days</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#experience">Experience</a>
+    <a href="#venue">Venue</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#faq">FAQ</a>
+    <a class="btn btn-primary" href="#days" data-tickets="org">Get Tickets</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</header>
+
+<main id="top">
+
+<!-- ===================== HERO (video background) ===================== -->
+<section class="hero">
+  <!-- Hero highlight slideshow — flickers through the photos in HERO_SLIDES (see script). -->
+  <div class="hero-slides" id="heroSlides" aria-hidden="true"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-center">
+    <h1 class="hero-logo">
+      <img class="hero-logo-img" src="img/logo-white.png" alt="Foam Nation Arizona — Powered by Foam Daddy" />
+    </h1>
+    <p class="hero-tag">Arizona's home for foam parties done right — we turn the park into an ocean of foam for the whole family.</p>
+    <div class="hero-ticket" id="heroTicket" aria-live="polite"><!-- filled by JS --></div>
+    <div class="hero-cues">
+      <span>Built by the DartyForLife team</span>
+      <span>· 13,000+ guests in the Valley ·</span>
+      <span>All ages welcome</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE DAYS ===================== -->
+<section class="sec" id="days">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Summer 2026</span>
+        <h2 class="display">The foam days</h2>
+      </div>
+      <p>All-ages family foam parties at Dink &amp; Dine Pickle Park. Tickets are on Posh and prices rise the longer you wait — grab early bird while it lasts.</p>
+    </div>
+    <div class="chips reveal" id="chips">
+      <button class="chip active" data-filter="all">All days</button>
+      <button class="chip" data-filter="family">Family · all ages</button>
+      <button class="chip" data-filter="18">18+ after dark</button>
+    </div>
+    <div class="event-grid" id="eventGrid"><!-- rendered by JS --></div>
+  </div>
+</section>
+
+<!-- ===================== PRICING / FAMILY DEAL ===================== -->
+<section class="sec" id="pricing">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Tickets &amp; family deals</span>
+        <h2 class="display">Bring the<br>whole crew</h2>
+      </div>
+      <p>Pick what fits your crew — <b>Single Entry</b>, the <b>Family 4-Pack</b> (buy 4, get 1 free ≈ 20% off), <b>General Admission Plus</b>, or the <b>VIP Family Bundle</b>. Live pricing is set on Posh.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <div class="pc-name">Single Entry</div>
+        <div class="pc-amt">from <b>$10</b> <span>/ person</span></div>
+        <div class="pc-sub">Early-bird — grab it before it rises</div>
+        <ul class="pc-list">
+          <li>One all-day foam pass</li>
+          <li>All ages · come &amp; go all day</li>
+          <li>Foam, water slides, bounce houses &amp; DJ</li>
+        </ul>
+        <button class="btn btn-blue" data-tickets="ev" data-ev-id="july25" style="width:100%;justify-content:center">Get a single ticket</button>
+      </div>
+      <div class="price-card featured reveal">
+        <span class="pc-badge">★ Best value · save ~20%</span>
+        <div class="pc-name">Family 4-Pack</div>
+        <div class="pc-amt"><b>$100</b> <span>/ 5 entries</span></div>
+        <div class="pc-sub">Buy 4, get 1 FREE · 5 for the price of 4</div>
+        <ul class="pc-list">
+          <li><b>Your 5th person gets in free</b></li>
+          <li>About <b>20% cheaper</b> than 5 singles</li>
+          <li>Made for families &amp; squads</li>
+        </ul>
+        <button class="btn btn-primary" data-tickets="ev" data-ev-id="july25" style="width:100%;justify-content:center">Get the Family 4-Pack
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <!-- New Posh tiers — EDIT: replace "Pricing on Posh" + the perk lines with the real price/inclusions when confirmed -->
+      <div class="price-card plus reveal">
+        <span class="pc-new">NEW</span>
+        <span class="pc-badge pc-badge-pop">⭐ Popular upgrade</span>
+        <div class="pc-name">General Admission Plus</div>
+        <div class="pc-amt"><b>$35</b> <span>/ person</span></div>
+        <div class="pc-sub">The smart step-up from GA</div>
+        <div class="pc-highlight"><span class="hi">★</span><span>Includes your own <b>Automatic Bubble Gun machine</b></span></div>
+        <ul class="pc-list">
+          <li>One Automatic Bubble Gun bubble machine</li>
+          <li>One all-day foam pass · all ages</li>
+          <li>Foam, water slides, bounce houses &amp; DJ</li>
+        </ul>
+        <button class="btn btn-blue" data-tickets="ev" data-ev-id="july25" style="width:100%;justify-content:center">Get GA Plus</button>
+      </div>
+      <div class="price-card vip reveal">
+        <span class="pc-new">NEW</span>
+        <span class="pc-badge pc-badge-vip">👑 VIP · best experience</span>
+        <div class="pc-name">VIP Family Bundle</div>
+        <div class="pc-amt"><b>$150</b> <span>/ 5 entries</span></div>
+        <div class="pc-sub">Buy 4, get 1 FREE — the loaded family pack</div>
+        <div class="pc-highlight"><span class="hi">★</span><span><b>Free face painting for everyone</b> + your own Automatic Bubble Gun machine</span></div>
+        <ul class="pc-list">
+          <li><b>5 entries for the price of 4</b> — 5th person free</li>
+          <li>Free face painting for each person</li>
+          <li>Plus an Automatic Bubble Gun machine</li>
+          <li>About 20% cheaper than 5 singles</li>
+        </ul>
+        <button class="btn btn-primary" data-tickets="ev" data-ev-id="july25" style="width:100%;justify-content:center">Get the VIP Bundle
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <p class="price-note reveal">Every tier and its live price is set at <b>Posh checkout</b>. Bigger group? The Family 4-Pack stacks — every 4 tickets adds a free 5th.</p>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section class="sec" id="experience">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">More than a foam party</span>
+        <h2 class="display">Well curated,<br>start to finish</h2>
+      </div>
+      <p>Plain foam is table stakes. We build a whole day around it — the kind of production that creates memories that last forever.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 18a5 5 0 0 1-1-9.9A6 6 0 0 1 18 8a4 4 0 0 1 0 10Z"/><path d="M9 13l1.5 1.5L13 12"/></svg></div>
+        <h3>Oceans of foam</h3>
+        <p>Pro Foam Daddy cannons stack the park knee-deep in clean, fluffy foam — the good stuff, nonstop all afternoon.</p>
+      </div>
+      <div class="feat reveal feat-2">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-10 6 10"/><path d="M3 17h18v3H3z"/><path d="M14 7l3-3 4 4-4 6"/></svg></div>
+        <h3>Slides &amp; bounce houses</h3>
+        <p>Water slides and bounce houses keep the kids flying between foam runs — there's never a dull minute.</p>
+      </div>
+      <div class="feat reveal feat-3">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M5 12H2m20 0h-3M12 5V2m0 20v-3M6.3 6.3 4.2 4.2m15.6 15.6-2.1-2.1M17.7 6.3l2.1-2.1M4.2 19.8l2.1-2.1"/></svg></div>
+        <h3>DJs &amp; photo ops</h3>
+        <p>A live DJ, themed stilt walkers and custom-made photo ops — every guest leaves a content creator.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOAM DADDY PARTNER ===================== -->
+<section class="sec" id="partner">
+  <div class="container">
+    <div class="partner-wrap">
+      <div class="partner-media reveal">
+        <div class="fd-card">
+          <img src="img/foam-daddy-logo.webp" alt="Foam Daddy — Foam Party Products" />
+          <span>Official Foam Partner</span>
+        </div>
+        <div class="partner-photo" style="background-image:url('img/hl/hl-4.jpg')"></div>
+      </div>
+      <div class="partner-copy reveal">
+        <span class="kicker">Our foam partner</span>
+        <h2 class="display">Powered by<br>Foam Daddy</h2>
+        <p>We don't cut corners on foam. Every Foam Nation event runs <b>exclusively</b> on professional Foam Daddy machines and solution — the team that's powered foam, bubble and snow parties since 2009.</p>
+        <p>We use them on purpose. Their foam is built for people:</p>
+        <ul class="fd-claims">
+          <li>Hypoallergenic &amp; non-toxic — gentle on little ones' skin</li>
+          <li>Biodegradable — kinder on the planet and the park</li>
+          <li>Non-staining — rinses clean off skin and swimsuits</li>
+          <li>Professional-grade — thick, fluffy foam that lasts all afternoon</li>
+        </ul>
+        <p class="fd-tag">Professional foam your family can rely on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VENUE ===================== -->
+<section class="sec" id="venue">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Exclusively at Dink &amp; Dine</span>
+        <h2 class="display">More than a<br>pickleball park</h2>
+      </div>
+      <p>Dink &amp; Dine Pickle Park is a family experience venue in Mesa — premium pickleball, chef-driven food and craft cocktails. We turn it into the best foam afternoon in the East Valley.</p>
+    </div>
+
+    <div class="venue-strip reveal">
+      <div class="vs-hero" style="background-image:url('img/venue/dd-aerial.jpg')">
+        <span class="vs-cap"><b>Dink &amp; Dine Pickle Park</b><span>1017 N Dobson Rd, Mesa, AZ 85201</span></span>
+      </div>
+      <div class="vs-col">
+        <div class="vs-tile" style="background-image:url('img/venue/dd-food.jpg')"></div>
+        <div class="vs-tile" style="background-image:url('img/venue/dd-play2.jpg')"></div>
+      </div>
+    </div>
+
+    <div class="venue-wrap reveal">
+      <div class="bubble" style="width:90px;height:90px;bottom:-20px;right:8%"></div>
+      <div class="bubble" style="width:46px;height:46px;top:18px;left:42%"></div>
+      <div class="venue-copy">
+        <span class="kicker">Come for the foam, stay for the day</span>
+        <h2>Play. Dine. Foam.</h2>
+        <p>While the kids disappear into the foam, parents grab craft cocktails, chef-driven bites and a few games of pickleball. Come for the game, stay for the night — it's a whole day out, not just an event.</p>
+        <div class="venue-facts">
+          <div class="vfact"><span class="vic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span> 1017 N Dobson Rd, Mesa, AZ 85201</div>
+          <div class="vfact"><span class="vic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v7a2 2 0 0 0 4 0V3M8 12v9M17 3c-1.7 0-3 2-3 4.5S15.3 12 17 12v9"/></svg></span> Premium pickleball · bold bites &amp; big energy</div>
+          <div class="vfact"><span class="vic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></span> All ages · built for families, teens &amp; friends</div>
+        </div>
+        <div class="hero-ctas" style="margin-top:24px">
+          <a class="btn btn-primary" href="#days" data-tickets="org">Get tickets</a>
+          <a class="btn btn-ghost" href="https://maps.google.com/?q=Dink+%26+Dine+Pickle+Park+1017+N+Dobson+Rd+Mesa+AZ+85201" target="_blank" rel="noopener" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.5)">Get directions</a>
+        </div>
+      </div>
+      <div class="venue-photo" style="background-image:url('img/venue/dd-venue.jpg')"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section class="sec" id="gallery">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">The foam, the faces</span>
+        <h2 class="display">Real days, real foam</h2>
+      </div>
+      <p>Sunny afternoons, big smiles and a whole lot of bubbles. This is what your crew is walking into.</p>
+    </div>
+    <div class="gallery reveal" id="galleryGrid"><!-- rendered by JS --></div>
+    <p class="gallery-note reveal">Tag your shots <b>#FoamNationAZ</b> — every guest becomes a content creator.</p>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section class="sec" style="padding-top:30px">
+  <div class="container">
+    <div class="stats">
+      <div class="stat reveal"><div class="n" data-count="13000" data-suffix="+">0</div><div class="l">Guests across the Valley</div></div>
+      <div class="stat reveal"><div class="n">All<br>ages</div><div class="l">Family foam fun</div></div>
+      <div class="stat reveal"><div class="n">Mesa</div><div class="l">Dink &amp; Dine Pickle Park</div></div>
+      <div class="stat reveal"><div class="n" style="font-size:clamp(26px,4vw,38px)">Foam<br>Daddy</div><div class="l">Official foam partner</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="sec" id="faq" style="padding-top:30px">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Good to know</span>
+        <h2 class="display">Before you go</h2>
+      </div>
+      <p>Everything a first-time foam family asks. Got another question? Reach out and we'll take care of you.</p>
+    </div>
+    <div class="faq-grid reveal">
+      <details class="faq"><summary>Who is it for?<span class="pm">+</span></summary><p>Everyone. Foam Nation days are all-ages and built for families — little kids, big kids, teens, parents and grandparents all welcome. We also run 18+ nights after dark; watch this page for dates.</p></details>
+      <details class="faq"><summary>What should we wear &amp; bring?<span class="pm">+</span></summary><p>Come in a swimsuit or clothes you don't mind getting foamy. Bring a towel, a change of clothes, water and sunscreen — it's an Arizona afternoon. Water shoes or sandals are a good call.</p></details>
+      <details class="faq"><summary>Where is it?<span class="pm">+</span></summary><p>Dink &amp; Dine Pickle Park in Mesa, AZ — a family experience venue with food, drinks and pickleball on site. Tap "Get directions" in the Venue section for the map.</p></details>
+      <details class="faq"><summary>Is the foam safe?<span class="pm">+</span></summary><p>Yes — we use Foam Daddy's professional foam solution: hypoallergenic, non-toxic, biodegradable and non-staining. It's gentle on kids' skin and rinses clean off skin and swimsuits. If anyone has specific sensitivities, just reach out and we'll take care of you.</p></details>
+      <details class="faq"><summary>How do tickets work?<span class="pm">+</span></summary><p>All tickets are sold securely through Posh — tap any "Get tickets" button to check out right here on the site. Prices rise as each date gets closer, so early bird is the move.</p></details>
+      <details class="faq"><summary>What if it's my first foam party?<span class="pm">+</span></summary><p>You're in great hands. Foam Nation is built by the DartyForLife team behind some of the biggest events in Arizona, with 13,000+ guests hosted across the Valley. Just show up ready to play.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA BAND ===================== -->
+<section style="padding:10px 0 70px">
+  <div class="band reveal">
+    <div class="bubble" style="width:120px;height:120px;top:-30px;left:8%"></div>
+    <div class="bubble" style="width:60px;height:60px;bottom:10px;right:14%"></div>
+    <h2>See you in the foam</h2>
+    <p>Early bird tickets don't last. Lock in your spot before prices rise.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#days" data-tickets="org">Get tickets on Posh</a>
+      <a class="btn btn-ghost" href="#days">See the dates</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top">
+          <img class="foot-logo" src="img/logo-nav.png" alt="Foam Nation Arizona" />
+        </a>
+        <p>Arizona's home for foam parties done right — family days under the sun and 18+ nights after dark. Creating memories that last forever.</p>
+        <span class="foot-fd">Powered by <img src="img/foam-daddy-logo.webp" alt="Foam Daddy" /></span>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="#days">The foam days</a>
+        <a href="#experience">Experience</a>
+        <a href="#venue">Venue · Dink &amp; Dine</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="foot-col">
+        <h4>Get in</h4>
+        <a href="#days" data-tickets="org">Tickets · Posh</a>
+        <a href="mailto:foamnationarizona@gmail.com">foamnationarizona@gmail.com</a>
+        <!-- EDIT: add real Foam Nation social handles, then uncomment / fill href -->
+        <a id="footIG" href="#days">Instagram</a>
+        <a id="footTT" href="#days">TikTok</a>
+        <a href="https://maps.google.com/?q=Dink+%26+Dine+Pickle+Park+1017+N+Dobson+Rd+Mesa+AZ+85201" target="_blank" rel="noopener">Directions · Mesa, AZ</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Foam Nation Arizona · Mesa, AZ · Powered by Foam Daddy</span>
+      <span>Family foam fun, done right.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== TICKET MODAL (Posh inline checkout) ===================== -->
+<div class="tk" id="tkModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Buy tickets on Posh">
+  <div class="tk-backdrop" data-close></div>
+  <div class="tk-dialog" role="document">
+    <div class="tk-head">
+      <div class="tk-head-l">
+        <span class="tk-kicker">Posh · secure checkout</span>
+        <h3 id="tkTitle">Tickets</h3>
+      </div>
+      <a class="tk-open" id="tkOpen" href="#" target="_blank" rel="noopener">Open ↗</a>
+      <button class="tk-close" data-close aria-label="Close checkout">✕</button>
+    </div>
+    <div class="tk-body" id="tkBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   POSH SETUP  —  EDIT THESE FIRST
+   ------------------------------------------------------------
+   1) POSH_ORG_URL = your Foam Nation storefront on Posh.
+      Foam Nation has its OWN Posh org (confirmed) — paste its
+      storefront URL here. The PLACEHOLDER below points to the
+      known-live DartyForLife storefront so preview isn't broken.
+      Don't guess a slug that may 404.
+   2) Per event, set  posh: "your-slug"  = the part after
+      posh.vip/e/  (copy from Posh dashboard → Event → Share).
+      Then "Get tickets" opens THAT event's checkout right inside
+      this site. Leave "" → opens the storefront in a new tab.
+   3) WEBHOOK: because Foam Nation is a SEPARATE Posh org, it is
+      NOT covered by the DartyForLife webhook. Add your webhook to
+      the Foam Nation org: Posh → Settings → API Webhooks → same
+      API Gateway URL + Posh-Secret. No Lambda changes needed — it
+      already parses event_name + ambassador attribution, so FN
+      sales then flow to QBO/iMessage/Sheet/dashboard automatically.
+   ============================================================ */
+const POSH_ORG_URL = "https://posh.vip/e/foam-party-18"; // Foam Nation Arizona — July 25 event on Posh
+
+/* social handles — fill in, then the footer links light up */
+const SOCIAL = { instagram: "", tiktok: "" }; // ← EDIT e.g. "https://instagram.com/foamnationaz"
+
+/* ============================================================
+   EVENT DATA  —  EDIT HERE
+   ------------------------------------------------------------
+   tier:  "family" (all-ages) | "18"  (18+ after dark)
+   date:  ISO "YYYY-MM-DD"  ·  past dates auto-hide
+   doors: display string  ·  startHour: 24h number (for countdown)
+   img:   photo in /img for the card  ·  posh: event slug ("" = storefront)
+   priceFrom: early-bird price shown as "From $X"
+   Only flyer-confirmed dates are live below. Add more as you
+   confirm them — don't publish a date that isn't locked.
+   ============================================================ */
+const EVENTS = [
+  /* July 4th event was cancelled — July 25th is now the next event. */
+  { id:"july25", name:"July 25th Foam Party", tier:"family", date:"2026-07-25",
+    kind:"Summer family all-ages", doors:"1:00 – 6:00 PM", startHour:13,
+    venue:"Dink & Dine Pickle Park", city:"Mesa, AZ", img:"img/hl/hl-2.jpg",
+    posh:"foam-party-18", priceFrom:"10", cta:{label:"Get tickets"} },
+
+  /* ---- 18+ AFTER DARK — add when a date is locked ----
+  { id:"afterdark-1", name:"Foam After Dark", tier:"18", date:"2026-07-03",
+    kind:"18+ night", doors:"8:00 PM – late", startHour:20,
+    venue:"Dink & Dine Pickle Park", city:"Mesa, AZ", img:"img/fn-24.jpg",
+    posh:"", priceFrom:"15", cta:{label:"Get tickets"} },
+  */
+];
+
+const EVENTS_BY_ID = Object.fromEntries(EVENTS.map(e => [e.id, e]));
+
+/* ============================================================
+   RENDERING
+   ============================================================ */
+const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+const WK = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+const WK_LONG = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const pillClass = {family:"pill-family", "18":"pill-18"};
+const pillLabel = {family:"All ages", "18":"18+ night"};
+
+function startOfToday(){ const d=new Date(); d.setHours(0,0,0,0); return d; }
+function parseDate(s){ if(!s) return null; const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); }
+function isUpcoming(ev){ const d=parseDate(ev.date); return d && d>=startOfToday(); }
+
+const ICON_PIN = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>`;
+const ICON_CLOCK = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`;
+
+function eventCard(ev){
+  const d = parseDate(ev.date);
+  const dateChip = d ? `
+    <div class="date-chip">
+      <span class="mo">${MONTHS[d.getMonth()]}</span>
+      <span class="dy">${d.getDate()}</span>
+      <span class="wd">${WK[d.getDay()]}</span>
+    </div>` : ``;
+  return `
+  <article class="ev" data-tier="${ev.tier}">
+    <div class="ev-photo" style="background-image:url('${ev.img||'img/hl/hl-1.jpg'}')">
+      ${dateChip}
+      <span class="pill ${pillClass[ev.tier]}">${pillLabel[ev.tier]}</span>
+    </div>
+    <div class="ev-body">
+      <h3>${ev.name}</h3>
+      <div class="ev-kind">${ev.kind||""}</div>
+      <div class="ev-meta">
+        <span class="row">${ICON_PIN} ${ev.venue||""} · ${ev.city||""}</span>
+        <span class="row">${ICON_CLOCK} ${ev.doors||"Time TBA"}</span>
+      </div>
+    </div>
+    <div class="ev-foot">
+      <span class="ev-price">${ev.priceFrom ? `From <b>$${ev.priceFrom}</b>` : `Tickets on Posh`}</span>
+      <button class="ev-cta" data-tickets="ev" data-ev-id="${ev.id}" aria-label="Get tickets for ${ev.name}">${ev.cta.label}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </article>`;
+}
+
+const grid = document.getElementById("eventGrid");
+function render(filter="all"){
+  let list = EVENTS.filter(isUpcoming);
+  if(filter!=="all") list = list.filter(e => e.tier===filter);
+  list.sort((a,b)=>{ const da=parseDate(a.date), db=parseDate(b.date);
+    if(!da) return 1; if(!db) return -1; return da-db; });
+  grid.innerHTML = list.length
+    ? list.map(eventCard).join("")
+    : `<div class="empty-note">No ${filter==="18"?"18+ nights":"days"} on sale right now — check back soon, or follow along for the next drop.</div>`;
+  attachReveal(grid.querySelectorAll(".ev"));
+}
+document.getElementById("chips").addEventListener("click", e=>{
+  const btn = e.target.closest(".chip"); if(!btn) return;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+  btn.classList.add("active");
+  render(btn.dataset.filter);
+});
+
+/* ---- GALLERY ---- */
+const GALLERY = [
+  {img:"gallery/g-1.jpg",cls:"tall"}, {img:"gallery/g-2.jpg",cls:""}, {img:"gallery/g-3.jpg",cls:""},
+  {img:"gallery/g-4.jpg",cls:""}, {img:"gallery/g-5.jpg",cls:"wide"}, {img:"gallery/g-6.jpg",cls:""},
+  {img:"gallery/g-7.jpg",cls:"tall"}, {img:"gallery/g-8.jpg",cls:""}, {img:"gallery/g-9.jpg",cls:""},
+  {img:"gallery/g-10.jpg",cls:""}, {img:"gallery/g-11.jpg",cls:"wide"}, {img:"gallery/g-12.jpg",cls:""},
+];
+document.getElementById("galleryGrid").innerHTML = GALLERY.map(g =>
+  `<div class="gtile ${g.cls}" style="background-image:url('img/${g.img}')"></div>`).join("");
+
+/* ============================================================
+   NEXT-EVENT COUNTDOWN
+   ============================================================ */
+function nextEvent(){
+  return EVENTS.filter(isUpcoming).sort((a,b)=>parseDate(a.date)-parseDate(b.date))[0] || null;
+}
+let cdTimer=null;
+function renderHeroTicket(){
+  const el = document.getElementById("heroTicket");
+  const ev = nextEvent();
+  if(!ev){ el.style.display="none"; return; }
+  const d = parseDate(ev.date);
+  el.innerHTML = `
+    <div class="ht-when"><span class="pulse"></span>Next foam day · <b>${WK_LONG[d.getDay()]}, ${MONTHS[d.getMonth()]} ${d.getDate()}</b> · ${ev.doors||""}</div>
+    <div class="countdown">
+      ${["Days","Hours","Mins","Secs"].map(l=>`<div class="cd-cell"><div class="num" data-k="${l}">--</div><div class="lab">${l}</div></div>`).join("")}
+    </div>
+    <div class="ht-cta">
+      <button class="btn btn-primary" data-tickets="ev" data-ev-id="${ev.id}">${ev.cta.label}${ev.priceFrom?` · from $${ev.priceFrom}`:""}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>`;
+  const target = new Date(d.getFullYear(), d.getMonth(), d.getDate(), ev.startHour||12, 0, 0).getTime();
+  const cells = el.querySelectorAll(".num");
+  const set = (k,v)=>{ cells.forEach(c=>{ if(c.dataset.k===k) c.textContent=String(v).padStart(2,"0"); }); };
+  function tick(){
+    let diff = Math.max(0, target - Date.now());
+    const day=86400000,hr=3600000,mn=60000;
+    const dd=Math.floor(diff/day); diff-=dd*day;
+    const hh=Math.floor(diff/hr);  diff-=hh*hr;
+    const mm=Math.floor(diff/mn);  diff-=mm*mn;
+    const ss=Math.floor(diff/1000);
+    set("Days",dd); set("Hours",hh); set("Mins",mm); set("Secs",ss);
+  }
+  tick(); clearInterval(cdTimer); cdTimer=setInterval(tick,1000);
+}
+
+/* ============================================================
+   SCROLL REVEAL + COUNT-UP
+   ============================================================ */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target);
+      if(en.target.dataset.count!==undefined) countUp(en.target);
+      en.target.querySelectorAll?.("[data-count]").forEach(c=>countUp(c));
+    }
+  });
+},{threshold:.12});
+function attachReveal(nodes){ nodes.forEach((n,i)=>{ n.classList.add("reveal"); n.style.transitionDelay=(i%4*60)+"ms"; io.observe(n); }); }
+document.querySelectorAll(".reveal").forEach(n=>io.observe(n));
+
+function countUp(el){
+  if(el._done) return; el._done=true;
+  const target = parseFloat(el.dataset.count);
+  const suffix = el.dataset.suffix||"";
+  const dur=1400, t0=performance.now();
+  function step(t){
+    const p=Math.min(1,(t-t0)/dur);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*e).toLocaleString("en-US")+suffix;
+    if(p<1) requestAnimationFrame(step); else el.textContent=Math.round(target).toLocaleString("en-US")+suffix;
+  }
+  requestAnimationFrame(step);
+}
+
+/* ============================================================
+   NAV behaviour
+   ============================================================ */
+const nav=document.getElementById("nav");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>24),{passive:true});
+const navLinks=document.getElementById("navLinks"), navToggle=document.getElementById("navToggle");
+navToggle.addEventListener("click",()=>{
+  const open=navLinks.classList.toggle("open");
+  navToggle.setAttribute("aria-expanded",open);
+});
+navLinks.addEventListener("click",e=>{ if(e.target.tagName==="A") navLinks.classList.remove("open"); });
+document.getElementById("year").textContent=new Date().getFullYear();
+
+/* social links */
+(function(){
+  const ig=document.getElementById("footIG"), tt=document.getElementById("footTT");
+  if(SOCIAL.instagram){ ig.href=SOCIAL.instagram; ig.target="_blank"; ig.rel="noopener"; } else ig.style.display="none";
+  if(SOCIAL.tiktok){ tt.href=SOCIAL.tiktok; tt.target="_blank"; tt.rel="noopener"; } else tt.style.display="none";
+})();
+
+/* ============================================================
+   POSH TICKETS — inline checkout modal
+   ============================================================ */
+const poshUrl = ev => (ev && ev.posh) ? `https://posh.vip/e/${ev.posh}` : POSH_ORG_URL;
+const tkModal = document.getElementById("tkModal");
+const tkBody  = document.getElementById("tkBody");
+const tkTitle = document.getElementById("tkTitle");
+const tkOpen  = document.getElementById("tkOpen");
+let tkReturnTo = null;
+
+function openTickets(ev){
+  const url = poshUrl(ev);
+  tkTitle.textContent = ev ? ev.name : "All foam days";
+  tkOpen.href = url;
+  tkBody.innerHTML = `<div class="tk-load">Loading secure checkout…</div>`;
+  const f = document.createElement("iframe");
+  f.title = "Posh checkout";
+  f.setAttribute("allow", "payment *; clipboard-write; web-share; accelerometer; encrypted-media");
+  f.addEventListener("load", () => { const l = tkBody.querySelector(".tk-load"); if(l) l.remove(); });
+  f.src = url;
+  tkBody.appendChild(f);
+  tkModal.classList.add("open");
+  tkModal.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  tkReturnTo=document.activeElement;
+  tkModal.querySelector(".tk-close").focus();
+}
+function closeTickets(){
+  tkModal.classList.remove("open");
+  tkModal.setAttribute("aria-hidden","true");
+  tkBody.innerHTML="";
+  document.body.style.overflow="";
+  if(tkReturnTo && tkReturnTo.focus) tkReturnTo.focus();
+}
+tkModal.addEventListener("click", e => { if(e.target.hasAttribute("data-close")) closeTickets(); });
+addEventListener("keydown", e => { if(e.key==="Escape" && tkModal.classList.contains("open")) closeTickets(); });
+
+/* one handler powers every ticket trigger.
+   • Event WITH a Posh slug → inline checkout modal (Posh event pages iframe cleanly).
+   • Storefront / not-yet-slugged → open POSH_ORG_URL in a new tab
+     (the group page is client-rendered and doesn't embed reliably). */
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-tickets]");
+  if(!t) return;
+  e.preventDefault();
+  const id = t.getAttribute("data-ev-id");
+  const ev = id ? EVENTS_BY_ID[id] : null;
+  if(ev && ev.posh) openTickets(ev);
+  else window.open(POSH_ORG_URL, "_blank", "noopener");
+});
+
+/* HERO HIGHLIGHT SLIDESHOW — the entry page flickers through these photos.
+   Add more by dropping files in /img/hl and listing them here (any order). */
+const HERO_SLIDES = [
+  "img/hl/hl-1.jpg",  // kids cheering + Foam Daddy tent
+  "img/hl/hl-2.jpg",  // girl peeking over foam (pink goggles)
+  "img/hl/hl-3.jpg",  // kids running in foam, palms
+  "img/hl/hl-4.jpg",  // girl on the foam cannon
+  "img/hl/hl-5.jpg",  // kids arms up celebrating
+  "img/hl/hl-6.jpg",  // girl with foam ball
+  "img/hl/hl-7.jpg",  // kids group, Arizona
+  "img/hl/hl-8.jpg",  // boy close-up smiling
+  "img/hl/hl-9.jpg",  // girl spraying the cannon
+  "img/hl/hl-10.jpg", // three boys
+];
+(function(){
+  const box = document.getElementById("heroSlides");
+  if(!box || !HERO_SLIDES.length) return;
+  HERO_SLIDES.forEach((src,i)=>{
+    const d = document.createElement("div");
+    d.className = "hero-slide" + (i===0 ? " active" : "");
+    d.style.backgroundImage = `url('${src}')`;
+    box.appendChild(d);
+  });
+  const slides = box.querySelectorAll(".hero-slide");
+  if(slides.length < 2) return;
+  let i = 0;
+  setInterval(() => {
+    slides[i].classList.remove("active");
+    i = (i + 1) % slides.length;
+    slides[i].classList.add("active");
+  }, 4000);
+})();
+
+/* boot */
+render("all");
+renderHeroTicket();
+</script>
+</body>
+</html>

@@ -1063,6 +1063,13 @@ let tkReturnTo = null;
 
 function openTickets(ev){
   const url = poshUrl(ev);
+  /* Posh's checkout calls crypto.randomUUID(), which browsers ONLY expose in a
+     secure (https) context. If this page is ever served over http, an embedded
+     iframe inherits that insecure context and Posh crashes with
+     "Party Foul… crypto.randomUUID is not a function". In that case skip the
+     inline iframe and open Posh in its own top-level https tab (always secure).
+     On https the nice inline modal below is used as normal. */
+  if(!window.isSecureContext){ window.open(url, "_blank", "noopener"); return; }
   tkTitle.textContent = ev ? ev.name : "All foam days";
   tkOpen.href = url;
   tkBody.innerHTML = `<div class="tk-load">Loading secure checkout…</div>`;

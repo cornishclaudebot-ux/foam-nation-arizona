@@ -496,7 +496,6 @@ footer{padding:60px 0 42px;margin-top:80px;background:#0a2348;color:#cfe0f3}
     <img class="nav-logo" src="img/logo-nav.png" alt="Foam Nation Arizona" />
   </a>
   <nav class="nav-links" id="navLinks">
-    <a href="#days">The Days</a>
     <a href="#pricing">Pricing</a>
     <a href="#experience">Experience</a>
     <a href="#venue">Venue</a>
@@ -1061,22 +1060,37 @@ const tkTitle = document.getElementById("tkTitle");
 const tkOpen  = document.getElementById("tkOpen");
 let tkReturnTo = null;
 
+/* Send the buyer straight to Posh's own https page. Used whenever the inline
+   embed can't be trusted — keeps checkout working no matter what. */
+function openPoshDirect(url){
+  const w = window.open(url, "_blank", "noopener");
+  if(!w) location.href = url;          // popup blocked → just navigate this tab
+}
+
 function openTickets(ev){
   const url = poshUrl(ev);
   /* Posh's checkout calls crypto.randomUUID(), which browsers ONLY expose in a
-     secure (https) context. If this page is ever served over http, an embedded
-     iframe inherits that insecure context and Posh crashes with
-     "Party Foul… crypto.randomUUID is not a function". In that case skip the
-     inline iframe and open Posh in its own top-level https tab (always secure).
-     On https the nice inline modal below is used as normal. */
-  if(!window.isSecureContext){ window.open(url, "_blank", "noopener"); return; }
+     secure (https) context. On an http page an embedded iframe inherits that
+     insecure context and Posh crashes ("Party Foul… crypto.randomUUID is not a
+     function"). If we're not secure, skip the iframe and open Posh top-level —
+     its own https origin is always a secure context. */
+  if(!window.isSecureContext){ openPoshDirect(url); return; }
   tkTitle.textContent = ev ? ev.name : "All foam days";
   tkOpen.href = url;
   tkBody.innerHTML = `<div class="tk-load">Loading secure checkout…</div>`;
   const f = document.createElement("iframe");
   f.title = "Posh checkout";
   f.setAttribute("allow", "payment *; clipboard-write; web-share; accelerometer; encrypted-media");
-  f.addEventListener("load", () => { const l = tkBody.querySelector(".tk-load"); if(l) l.remove(); });
+  let loaded = false;
+  /* Safety net: if Posh hasn't loaded in 8s (network hiccup, or Posh ever
+     blocks embedding) don't strand the buyer on a dead spinner — offer the
+     direct secure checkout link instead. */
+  const guard = setTimeout(() => {
+    if(loaded) return;
+    const l = tkBody.querySelector(".tk-load");
+    if(l) l.innerHTML = `Taking a moment to load… <a href="${url}" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;font-weight:800">open secure checkout in a new tab →</a>`;
+  }, 8000);
+  f.addEventListener("load", () => { loaded = true; clearTimeout(guard); const l = tkBody.querySelector(".tk-load"); if(l) l.remove(); });
   f.src = url;
   tkBody.appendChild(f);
   tkModal.classList.add("open");
@@ -1106,7 +1120,7 @@ document.addEventListener("click", e => {
   const id = t.getAttribute("data-ev-id");
   const ev = id ? EVENTS_BY_ID[id] : null;
   if(ev && ev.posh) openTickets(ev);
-  else window.open(POSH_ORG_URL, "_blank", "noopener");
+  else openPoshDirect(POSH_ORG_URL);
 });
 
 /* HERO HIGHLIGHT SLIDESHOW — the entry page flickers through these photos.

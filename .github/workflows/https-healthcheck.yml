@@ -1,0 +1,76 @@
+name: HTTPS health check
+
+# Keeps foamnation.us checkout flawless: verifies the site stays on a valid
+# https cert (Posh checkout REQUIRES a secure context) and that http/www
+# redirect to https. Re-enables "Enforce HTTPS" automatically if it ever flips
+# off, and fails the run (red X + email to the repo owner) on any regression.
+
+on:
+  schedule:
+    - cron: '0 14 * * *'      # daily 14:00 UTC = 7:00 AM Phoenix (MST, no DST)
+  workflow_dispatch:           # allow manual runs from the Actions tab
+
+permissions:
+  pages: write                 # lets the safe self-heal toggle Enforce HTTPS
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      DOMAIN: foamnation.us
+      POSH_URL: https://posh.vip/e/foam-party-18
+    steps:
+      - name: Verify HTTPS, certificate, redirects, and Posh checkout
+        run: |
+          set -uo pipefail
+          fail=0
+
+          # 1) https serves 200 with a strictly-valid certificate
+          code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 25 "https://$DOMAIN" || echo 000)
+          verify=$(curl -sS -o /dev/null -w '%{ssl_verify_result}' --max-time 25 "https://$DOMAIN" || echo 1)
+          echo "https://$DOMAIN -> http_code=$code ssl_verify=$verify"
+          [ "$code" = "200" ] || { echo "::error::https://$DOMAIN did not return 200 (got $code)"; fail=1; }
+          [ "$verify" = "0" ] || { echo "::error::TLS certificate failed verification (ssl_verify_result=$verify)"; fail=1; }
+
+          # 2) certificate is not about to expire (>14 days left)
+          enddate=$(echo | openssl s_client -servername "$DOMAIN" -connect "$DOMAIN:443" 2>/dev/null \
+                    | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)
+          if [ -n "$enddate" ]; then
+            days=$(( ( $(date -d "$enddate" +%s) - $(date +%s) ) / 86400 ))
+            echo "certificate expires in $days days ($enddate)"
+            [ "$days" -gt 14 ] || { echo "::error::TLS certificate expires in $days days — renewal may be failing"; fail=1; }
+          else
+            echo "::error::could not read certificate expiry for $DOMAIN"; fail=1
+          fi
+
+          # 3) http and www redirect to https (so nobody lands on an insecure page)
+          for host in "http://$DOMAIN" "http://www.$DOMAIN"; do
+            loc=$(curl -sS -o /dev/null -w '%{redirect_url}' --max-time 25 "$host" || echo "")
+            echo "$host -> $loc"
+            case "$loc" in
+              https://*) ;;
+              *) echo "::error::$host does not redirect to https (got '$loc')"; fail=1;;
+            esac
+          done
+
+          # 4) the Posh event page is reachable
+          pcode=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 25 "$POSH_URL" || echo 000)
+          echo "$POSH_URL -> $pcode"
+          case "$pcode" in 200|301|302|303|307|308) ;; *) echo "::error::Posh checkout returned $pcode"; fail=1;; esac
+
+          # 5) safe self-heal: make sure "Enforce HTTPS" stays ON (idempotent)
+          enforced=$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq '.https_enforced' 2>/dev/null || echo unknown)
+          echo "https_enforced=$enforced"
+          if [ "$enforced" = "false" ]; then
+            echo "Enforce HTTPS was OFF — turning it back on"
+            gh api -X PUT "repos/${GITHUB_REPOSITORY}/pages" -F https_enforced=true \
+              || echo "::warning::could not auto-enable https_enforced (check token permissions)"
+          fi
+
+          if [ "$fail" = "1" ]; then
+            echo "❌ Health check FAILED — see errors above."
+            exit 1
+          fi
+          echo "✅ All checks passed: https valid, cert healthy, redirects good, Posh reachable."

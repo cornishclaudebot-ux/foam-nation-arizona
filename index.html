@@ -135,10 +135,10 @@ section{position:relative}
   padding:104px 20px 72px;overflow:hidden;text-align:center}
 .hero-slides{position:absolute;inset:0;z-index:0;overflow:hidden;background:#0a2348}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;
-  opacity:0;transition:opacity 1.5s ease;filter:blur(2px) brightness(.9) saturate(1.08);transform:scale(1.06)}
+  opacity:0;transition:opacity 1.5s ease;filter:blur(1px) brightness(.97) saturate(1.08);transform:scale(1.06)}
 .hero-slide.active{opacity:1}
 .hero-scrim{position:absolute;inset:0;z-index:1;
-  background:linear-gradient(180deg, rgba(8,30,70,.52) 0%, rgba(8,30,70,.4) 38%, rgba(7,24,60,.86) 100%)}
+  background:linear-gradient(180deg, rgba(8,28,66,.34) 0%, rgba(8,26,62,.26) 42%, rgba(7,22,58,.74) 100%)}
 .hero-center{position:relative;z-index:3;max-width:780px;display:flex;flex-direction:column;align-items:center}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);
   border:1px solid rgba(255,255,255,.32);backdrop-filter:blur(6px);color:#fff;border-radius:999px;
@@ -486,6 +486,42 @@ footer{padding:60px 0 42px;margin-top:80px;background:#0a2348;color:#cfe0f3}
   .tk{padding:0}
   .tk-dialog{width:100%;height:100%;max-height:100%;border-radius:0}
 }
+
+/* ============================================================
+   NIGHT COLORWAY — deep-blue theme (white content pops on it).
+   Solid translucent cards (no backdrop-filter) = snappy scroll.
+   ============================================================ */
+:root{
+  --ink:#eef5ff; --ink-2:#d8e5f8; --muted:#a8c0dd; --muted-2:#86a0c4;
+  --surface:rgba(15,38,72,.78); --surface-2:rgba(24,50,90,.85);
+  --line:rgba(152,194,240,.18);
+}
+body{ background:linear-gradient(180deg,#061a33 0%,#0a2c58 38%,#0f3a6e 70%,#0a2547 100%); }
+#partner,#pricing,#experience{ background:transparent; }
+
+/* dark cards on the blue (the hardcoded-light ones need overriding) */
+.fd-card{ background:var(--surface); }
+.price-card.featured{ background:linear-gradient(180deg,rgba(58,46,8,.55),rgba(15,38,72,.82)); }
+.price-card.plus{ background:linear-gradient(180deg,rgba(14,50,96,.7),rgba(15,38,72,.82)); }
+.price-card.vip{ background:linear-gradient(180deg,rgba(60,48,8,.55),rgba(15,38,72,.84)); }
+
+/* section headers + accents on the dark bg */
+.sec-head h2,.sec-title,.partner-copy h2{ color:#fff; }
+.kicker{ color:#62d2ef; } .kicker::before{ background:#62d2ef; }
+.chip{ background:rgba(255,255,255,.07); color:#dce8f8; }
+.chip.active{ background:var(--blue); color:#fff; }
+
+/* keep DARK text on bright/white surfaces (CTAs, badges, date chips, checkout) */
+.btn-primary,.ev-cta,.pc-badge,.pc-badge-vip{ color:#0b2e5b; }
+.ev-photo .date-chip .dy{ color:#0b2e5b; } .ev-photo .date-chip .wd{ color:#5a78a0; }
+.tk-dialog,.tk-head h3,.tk-close{ color:#0b2e5b; } .tk-open,.tk-load{ color:#5a78a0; }
+
+/* pricing cards illuminate on hover — same lift + glowing border as the event cards */
+.price-card{ transition:transform .3s var(--ease), box-shadow .35s, border-color .3s; }
+.price-card:hover{ transform:translateY(-7px); border-color:var(--cyan);
+  box-shadow:0 34px 70px -32px rgba(21,119,230,.5), 0 0 34px -6px rgba(34,167,234,.42); }
+.price-card.featured:hover, .price-card.vip:hover{ transform:translateY(-7px);
+  box-shadow:0 34px 70px -30px rgba(240,165,0,.55), 0 0 40px -6px rgba(255,205,58,.46); }
 </style>
 </head>
 <body>

@@ -573,7 +573,7 @@ body{ background:linear-gradient(180deg,#061a33 0%,#0a2c58 38%,#0f3a6e 70%,#0a25
         <span class="kicker">Summer 2026</span>
         <h2 class="display">The foam days</h2>
       </div>
-      <p>All-ages family foam parties at Dink &amp; Dine Pickle Park. Tickets are on Posh and prices rise the longer you wait — grab early bird while it lasts.</p>
+      <p>All-ages family foam parties at Dink &amp; Dine Pickle Park. Grab your tickets on Posh and lock in your spot for the next foam day.</p>
     </div>
     <div class="chips reveal" id="chips">
       <button class="chip active" data-filter="all">All days</button>
@@ -597,8 +597,8 @@ body{ background:linear-gradient(180deg,#061a33 0%,#0a2c58 38%,#0f3a6e 70%,#0a25
     <div class="price-grid">
       <div class="price-card reveal">
         <div class="pc-name">Single Entry</div>
-        <div class="pc-amt">from <b>$10</b> <span>/ person</span></div>
-        <div class="pc-sub">Early-bird — grab it before it rises</div>
+        <div class="pc-amt">Tickets on Posh</div>
+        <div class="pc-sub">Live price at checkout</div>
         <ul class="pc-list">
           <li>One all-day foam pass</li>
           <li>All ages · come &amp; go all day</li>
@@ -800,7 +800,7 @@ body{ background:linear-gradient(180deg,#061a33 0%,#0a2c58 38%,#0f3a6e 70%,#0a25
       <details class="faq"><summary>What should we wear &amp; bring?<span class="pm">+</span></summary><p>Come in a swimsuit or clothes you don't mind getting foamy. Bring a towel, a change of clothes, water and sunscreen — it's an Arizona afternoon. Water shoes or sandals are a good call.</p></details>
       <details class="faq"><summary>Where is it?<span class="pm">+</span></summary><p>Dink &amp; Dine Pickle Park in Mesa, AZ — a family experience venue with food, drinks and pickleball on site. Tap "Get directions" in the Venue section for the map.</p></details>
       <details class="faq"><summary>Is the foam safe?<span class="pm">+</span></summary><p>Yes — we use Foam Daddy's professional foam solution: hypoallergenic, non-toxic, biodegradable and non-staining. It's gentle on kids' skin and rinses clean off skin and swimsuits. If anyone has specific sensitivities, just reach out and we'll take care of you.</p></details>
-      <details class="faq"><summary>How do tickets work?<span class="pm">+</span></summary><p>All tickets are sold securely through Posh — tap any "Get tickets" button to check out right here on the site. Prices rise as each date gets closer, so early bird is the move.</p></details>
+      <details class="faq"><summary>How do tickets work?<span class="pm">+</span></summary><p>All tickets are sold securely through Posh. Tap any "Get tickets" button to check out right here on the site, no app or account needed.</p></details>
       <details class="faq"><summary>What if it's my first foam party?<span class="pm">+</span></summary><p>You're in great hands. Foam Nation is built by the DartyForLife team behind some of the biggest events in Arizona, with 13,000+ guests hosted across the Valley. Just show up ready to play.</p></details>
     </div>
   </div>
@@ -812,7 +812,7 @@ body{ background:linear-gradient(180deg,#061a33 0%,#0a2c58 38%,#0f3a6e 70%,#0a25
     <div class="bubble" style="width:120px;height:120px;top:-30px;left:8%"></div>
     <div class="bubble" style="width:60px;height:60px;bottom:10px;right:14%"></div>
     <h2>See you in the foam</h2>
-    <p>Early bird tickets don't last. Lock in your spot before prices rise.</p>
+    <p>Don't miss the next foam day. Grab your spot before it fills up.</p>
     <div class="hero-ctas">
       <a class="btn btn-primary" href="#days" data-tickets="org">Get tickets on Posh</a>
       <a class="btn btn-ghost" href="#days">See the dates</a>
@@ -906,7 +906,7 @@ const SOCIAL = { instagram: "https://www.instagram.com/foamnationarizona/", tikt
    date:  ISO "YYYY-MM-DD"  ·  past dates auto-hide
    doors: display string  ·  startHour: 24h number (for countdown)
    img:   photo in /img for the card  ·  posh: event slug ("" = storefront)
-   priceFrom: early-bird price shown as "From $X"
+   priceFrom: optional "From $X" price ("" hides it and shows "Tickets on Posh")
    Only flyer-confirmed dates are live below. Add more as you
    confirm them — don't publish a date that isn't locked.
    ============================================================ */
@@ -915,7 +915,7 @@ const EVENTS = [
   { id:"july25", name:"July 25th Foam Party", tier:"family", date:"2026-07-25",
     kind:"Summer family all-ages", doors:"1:00 – 6:00 PM", startHour:13,
     venue:"Dink & Dine Pickle Park", city:"Mesa, AZ", img:"img/hl/hl-2.jpg",
-    posh:"foam-party-18", priceFrom:"10", cta:{label:"Get tickets"} },
+    posh:"foam-party-18", priceFrom:"", cta:{label:"Get tickets"} },
 
   /* ---- 18+ AFTER DARK — add when a date is locked ----
   { id:"afterdark-1", name:"Foam After Dark", tier:"18", date:"2026-07-03",

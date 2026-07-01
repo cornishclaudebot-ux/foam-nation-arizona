@@ -231,6 +231,12 @@ section{position:relative}
   background:var(--turq) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/11px no-repeat}
 .price-card.featured .pc-list li::before{background:var(--yellow-deep)}
 .price-card .btn{margin-top:auto}
+/* ---- early-bird sold-out strip (dimmed, full-width) ---- */
+.price-card.soldout{grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:space-between;gap:18px;padding:20px 28px;opacity:.6;filter:grayscale(.4);border-style:dashed;box-shadow:none}
+.price-card.soldout .pc-name{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.eb-tag{display:inline-block;background:#5b6b82;color:#fff;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:4px 11px;border-radius:999px;margin-left:2px}
+.eb-price{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:32px;color:var(--muted);text-decoration:line-through;flex:none}
+@media(max-width:640px){.price-card.soldout{flex-direction:column;align-items:flex-start;gap:10px}}
 .price-note{text-align:center;color:var(--muted);font-weight:700;font-size:14px;margin:24px auto 0;max-width:54ch}
 .price-note b{color:var(--ink)}
 /* ---- premium NEW tiers: GA Plus + VIP Family Bundle ---- */
@@ -592,13 +598,22 @@ body{ background:linear-gradient(180deg,#061a33 0%,#0a2c58 38%,#0f3a6e 70%,#0a25
         <span class="kicker">Tickets &amp; family deals</span>
         <h2 class="display">Bring the<br>whole crew</h2>
       </div>
-      <p>Pick what fits your crew — <b>Single Entry</b>, the <b>Family 4-Pack</b> (buy 4, get 1 free ≈ 20% off), <b>General Admission Plus</b>, or the <b>VIP Family Bundle</b>. Live pricing is set on Posh.</p>
+      <p>Pick what fits your crew. <b>General Admission</b>, the <b>Family 4-Pack</b> (buy 4, get 1 free, about 20% off), <b>General Admission Plus</b>, or the <b>VIP Family Bundle</b>. Live pricing is set on Posh.</p>
     </div>
     <div class="price-grid">
+      <!-- Early bird: SOLD OUT (dimmed, full-width strip) -->
+      <div class="price-card soldout">
+        <div>
+          <div class="pc-name">Early Bird <span class="eb-tag">Sold out</span></div>
+          <div class="pc-sub" style="color:var(--muted);margin-top:6px">Early bird is gone. General Admission is live below.</div>
+        </div>
+        <div class="eb-price">$10</div>
+      </div>
+      <!-- General Admission: current live Posh price -->
       <div class="price-card reveal">
-        <div class="pc-name">Single Entry</div>
-        <div class="pc-amt">Tickets on Posh</div>
-        <div class="pc-sub">Live price at checkout</div>
+        <div class="pc-name">General Admission</div>
+        <div class="pc-amt"><b>$28.49</b> <span>/ person</span></div>
+        <div class="pc-sub">Live price at Posh checkout</div>
         <ul class="pc-list">
           <li>One all-day foam pass</li>
           <li>All ages · come &amp; go all day</li>
@@ -915,7 +930,7 @@ const EVENTS = [
   { id:"july25", name:"July 25th Foam Party", tier:"family", date:"2026-07-25",
     kind:"Summer family all-ages", doors:"1:00 – 6:00 PM", startHour:13,
     venue:"Dink & Dine Pickle Park", city:"Mesa, AZ", img:"img/hl/hl-2.jpg",
-    posh:"foam-party-18", priceFrom:"", cta:{label:"Get tickets"} },
+    posh:"foam-party-18", priceFrom:"28.49", cta:{label:"Get tickets"} },
 
   /* ---- 18+ AFTER DARK — add when a date is locked ----
   { id:"afterdark-1", name:"Foam After Dark", tier:"18", date:"2026-07-03",
@@ -1196,5 +1211,19 @@ const HERO_SLIDES = [
 render("all");
 renderHeroTicket();
 </script>
+
+<!-- OpenClaw chat assistant. After deploying ~/openclaw to Netlify, paste that
+     endpoint below and the bubble goes live. -->
+<script>
+  window.OPENCLAW = {
+    endpoint: "PASTE_YOUR_OPENCLAW_ENDPOINT_HERE",
+    brand:    "foam",
+    name:     "Foam Nation",
+    site:     "foamnation.us",
+    accent:   "#1ba3d6",
+    greeting: "Hey! 🫧 Ask me anything about the July 25 family foam fest."
+  };
+</script>
+<script src="openclaw.js"></script>
 </body>
 </html>

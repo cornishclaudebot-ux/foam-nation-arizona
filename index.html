@@ -224,6 +224,8 @@ section{position:relative}
 .price-card.featured .pc-amt b{font-size:30px;color:var(--yellow-deep)}
 .pc-amt span{font-size:14px;color:var(--muted);font-weight:700}
 .pc-sub{color:var(--turq);font-weight:900;font-size:15px;margin-bottom:4px}
+.pc-urgent{display:inline-flex;align-items:center;gap:7px;margin:8px 0 2px;padding:6px 13px;border-radius:999px;background:rgba(255,195,40,.13);border:1px solid rgba(255,195,40,.5);color:var(--yellow);font-weight:900;font-size:12.5px;width:fit-content}
+.pc-urgent svg{width:14px;height:14px;flex:none}
 .pc-list{list-style:none;padding:0;margin:16px 0 24px;display:grid;gap:11px}
 .pc-list li{position:relative;padding-left:28px;color:var(--ink-2);font-weight:700;font-size:14.5px}
 .pc-list li b{color:var(--ink)}
@@ -613,7 +615,7 @@ body{ background:linear-gradient(180deg,#061a33 0%,#0a2c58 38%,#0f3a6e 70%,#0a25
       <div class="price-card reveal">
         <div class="pc-name">General Admission</div>
         <div class="pc-amt"><b>$28.49</b> <span>/ person</span></div>
-        <div class="pc-sub">Live price at Posh checkout</div>
+        <div class="pc-urgent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg>Prices rise soon</div>
         <ul class="pc-list">
           <li>One all-day foam pass</li>
           <li>All ages · come &amp; go all day</li>
